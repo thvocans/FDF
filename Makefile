@@ -14,9 +14,9 @@
 
 NAME = exe
 
-FLAGS = #-Wall -Wextra -Werror
-FLAGS = -Wall -Wextra -Werror
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -lmlx -L./minilibx_elcapitan -framework OpenGL -framework Appkit
+#FLAGS = -lmlx -L./minilibx_sierra -framework OpenGL -framework Appkit
+#FLAGS = -Wall -Wextra -Werror
 
 C_FOLDER = ./
 
