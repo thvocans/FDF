@@ -6,7 +6,7 @@
 #    By: thvocans <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/23 19:03:58 by thvocans          #+#    #+#              #
-#    Updated: 2017/06/10 16:03:50 by thvocans         ###   ########.fr        #
+#    Updated: 2017/06/12 19:24:15 by thvocans         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,22 +14,24 @@
 
 NAME = exe
 
-FLAGS = -lmlx -L./minilibx_elcapitan -framework OpenGL -framework Appkit
-#FLAGS = -lmlx -L./minilibx_sierra -framework OpenGL -framework Appkit
+FLAGS = -Wall -Wextra -Werror
+#FLAGS = -Wall -Wextra -Werror -lmlx -L./sierra -framework OpenGL -framework Appkit
 #FLAGS = -Wall -Wextra -Werror
 
 C_FOLDER = ./
 
 H_FOLDER = ./
 
-LIB_FOLD = ./libft/
+LIB_FOLD = ./libft
 
-LIB = libft.a
+#GLIB_FOLD = ./sierra
+GLIB_FOLD = ./el_capitan
 
-SRC = main ft_read ft_tab\
-	  ft_check_char ft_check_format ft_check_shape\
-	  ft_split_pieces ft_save_shape ft_struct_fill\
-	  ft_square_size placement ft_valid_loc
+LIB = $(LIB_FOLD)/libft.a
+
+GLIB = $(GLIB_FOLD)/libmlx.a
+
+SRC = main
 
 C_FILE = $(addsuffix .c,$(addprefix $(C_FOLDER),$(SRC)))
 
@@ -37,19 +39,25 @@ O_FILE = $(addsuffix .o,$(SRC))
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(O_FILE)
-	@gcc $(FLAGS) -L$(LIB_FOLD) -I$(LIB_FOLD) -lft -o $@ $(O_FILE)
+$(NAME): $(LIB) $(O_FILE) $()
+	gcc $(FLAGS) $(LIB) $(GLIB) -I$(LIB_FOLD) -framework OpenGL -framework Appkit -o $@ $(O_FILE)
 	@echo "\033[32mexecutable OK\033[0m"
 
 ./%.o: ./%.c
-	@gcc -c $(FLAGS) $< -I$(LIB_FOLD) -o $@
+	gcc -c $< $(FLAGS) -I$(LIB_FOLD) -o $@
 	@echo "\033[32m$@\033[0m"
 
-$(LIB):
+libft.a:
 	@$(MAKE) -C libft
+
+libmlx.a:
+	@$(MAKE) -C el_capitan
 
 libclean:
 	@$(MAKE) -C libft clean
+
+mlxclean:
+	@$(MAKE) -C el_capitan clean
 
 clean: libclean
 	@/bin/rm -f $(O_FILE)

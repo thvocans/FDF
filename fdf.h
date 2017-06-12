@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 18:29:19 by thvocans          #+#    #+#             */
-/*   Updated: 2017/06/10 19:43:23 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/06/12 18:34:33 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ typedef struct s_img t_img;
 
 struct s_key
 {
-	char			down[40];
-	char			oct;
-	char			bit;
-	char			mask;
+	unsigned char	down[40];
+	short			oct;
+	short			bit;
+	short			mask;
 	unsigned int	*pt;
 };
 typedef struct s_key t_key;
