@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/11 16:06:08 by thvocans          #+#    #+#             */
-/*   Updated: 2017/04/23 17:46:57 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/06/15 17:03:14 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,9 @@ int		ft_isspace(char c);
 t_list	*ft_list_last(t_list *begin_list);
 size_t	ft_sqrt(size_t nb);
 void	ft_puttab(char **tab);
+/*
+** Latest Addons
+*/
+int		gnl(const int fd, char **line);
 
 #endif
