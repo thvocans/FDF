@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 18:29:19 by thvocans          #+#    #+#             */
-/*   Updated: 2017/06/15 21:21:18 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/06/21 17:07:34 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@
 # include <stdio.h>
 # include "./libft/libft.h"
 
-struct s_dot
+typedef struct s_map t_map;
+struct s_map
 {
 	char	*line;
-	int		
+	int		*px;//0:height
+	int		*cl;//color
+	t_map	*next;
 };
-typedef struct s_dot t_dot;
 
 struct s_img
 {
@@ -54,10 +56,10 @@ struct s_mlx
 	int		y;
 
 	int		fd;
-	int		**map;
 
 	t_img	img;
 	t_key	key;
+	t_map	*map;
 };
 typedef struct s_mlx t_mlx;
 
@@ -66,5 +68,5 @@ int     ft_key(int key, void *p);
 int     press(int key, void *p);
 int     release(int key, void *p);
 void    ft_init_key(t_key *key);
-int		parser(t_mlx *w);
+int		parser(t_mlx *w, char *av);
 # endif
