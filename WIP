@@ -1,0 +1,17 @@
+parsing des valeurs hauteur + couleur des px
+
+Derniere compilation connue :
+./a.out maps/elem-col.fdf
+split0
+split10
+split20,0xFF0000
+split15,0xFF0000
+split12
+split15,0xFF0000
+split17,0xFF0000
+split20,0xFF0000
+split10
+split0
+bpp:32| line:2560| endian:0
+down:32
+�h�
