@@ -12,6 +12,37 @@
 
 #include "fdf.h"
 
+int		ft_htoi(char *str)
+{
+	int		i;
+	int		out;
+	char	oct;
+
+	i = 0;
+	out = 0;
+	if (str[0] == ',')
+		i++;
+	if (str[1] == '0')
+		i++;
+	if (str[2] == 'x')
+		i++;
+	while (str[i])
+	{
+		oct = str[i];
+		if (ft_isdigit(str[i]))
+				oct = str[i] - '0';
+		else if (str[i] >= 'a' && str[i] <= 'f')
+				oct = str[i] - 'a' + 10;
+		else if (str[i] >= 'A' && str[i] <= 'F')
+				oct = str[i] - 'A' + 10;
+		else
+			break ;
+		out = (out << 4) + oct;
+		i++;
+	}
+	return (out);
+}
+
 int		*get_nbr(t_map *map)
 {
 	int		i;
@@ -27,24 +58,25 @@ int		*get_nbr(t_map *map)
 	map->nb = i;
 	//malloc du nombre d'ints
 	if (!(map->px = malloc(sizeof(int) * i)) ||
-			!(map->cl = malloc(sizeof(int) * i)))
+			!(map->pc = malloc(sizeof(int) * i)))
 		return (NULL);
 	while (j < i) //heigh to num + color to num
 	{
 		map->px[j] = ft_atoi(split[j]);
-		if (ft_strchr(split[j], ','))
-/**/		map->pc[j] = ;//put here atoi base to convert hex to int
+		if ((split[j] = ft_strchr(split[j], ',')))
+/**/		map->pc[j] = ft_htoi(split[j]);//put here atoi base to convert hex to int
 		else
 			map->pc[j] = 0xFFFFFF;
+		j++;
 	}
 
 
-
-/*	while (split[i])
+	j = 0;
+	while (j < i)
 	{
-		printf("split%s\n", split[i++]);
+		printf("px:%X\n", map->pc[j++]);
 	}
-*/
+
 	return (0);
 }
 

@@ -14,7 +14,7 @@
 
 NAME = exe
 
-FLAGS = #-Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 #FLAGS = -Wall -Wextra -Werror -lmlx -L./sierra -framework OpenGL -framework Appkit
 #FLAGS = -Wall -Wextra -Werror
 
@@ -31,7 +31,7 @@ LIB = $(LIB_FOLD)/libft.a
 
 GLIB = $(GLIB_FOLD)/libmlx.a
 
-SRC = main keyboard parsing
+SRC = main
 
 C_FILE = $(addsuffix .c,$(addprefix $(C_FOLDER),$(SRC)))
 
@@ -39,12 +39,12 @@ O_FILE = $(addsuffix .o,$(SRC))
 
 all: $(NAME)
 
-$(NAME): $(LIB) $(O_FILE)
-	@gcc $(FLAGS) $(LIB) $(GLIB) -framework OpenGL -framework Appkit -o $@ $(O_FILE)
+$(NAME): $(LIB) $(O_FILE) $()
+	gcc $(FLAGS) $(LIB) $(GLIB) -I$(LIB_FOLD) -framework OpenGL -framework Appkit -o $@ $(O_FILE)
 	@echo "\033[32mexecutable OK\033[0m"
 
 ./%.o: ./%.c
-	@gcc -c $< $(FLAGS) -I$(LIB_FOLD) -o $@
+	gcc -c $< $(FLAGS) -I$(LIB_FOLD) -o $@
 	@echo "\033[32m$@\033[0m"
 
 libft.a:
