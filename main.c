@@ -34,7 +34,7 @@ int		main(int ac, char **av)
 	w.img.pt = mlx_new_image(w.mlx, w.x, w.y);
 	w.img.px = (int*)mlx_get_data_addr(w.img.pt, &(w.img.bpp), &(w.img.ln), &(w.img.end));
 	parser(&w, av[1]);
-	printf("bpp:%d| line:%d| endian:%d\n",w.img.bpp, w.img.ln, w.img.end);
+//	printf("bpp:%d| line:%d| endian:%d\n",w.img.bpp, w.img.ln, w.img.end);
 	mlx_hook(w.win, 2, (1L<<0), &press, &w);
 	mlx_hook(w.win, 3, (1L<<1), &release, &w);
 //	mlx_loop_hook(w.mlx, &latent, &w);

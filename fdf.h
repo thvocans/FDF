@@ -23,13 +23,14 @@
 typedef struct s_map t_map;
 struct s_map
 {
-	int		nb;//
-	char	*line;
-	int		*px;//p_height
-	int		*pc;//p_color
+	int		nb;		//nb of px, len of tab
+	char	*line;	//raw line data
+	int		*px;	//p_height
+	int		*pc;	//p_color
 	t_map	*next;
 };
 
+typedef struct s_img t_img;
 struct s_img
 {
 	void	*pt;		//struct img pointer new img
@@ -41,8 +42,8 @@ struct s_img
 	int		bpp;		//bits per pixel
 	int		end;		//endian
 };
-typedef struct s_img t_img;
 
+typedef struct s_key t_key;
 struct s_key
 {
 	unsigned char	down[40];	//key pressed tab
@@ -51,8 +52,8 @@ struct s_key
 	short			mask;		//check this bit only
 	unsigned int	*pt;		//pt to down tab
 };
-typedef struct s_key t_key;
 
+typedef struct s_mlx t_mlx;
 struct s_mlx
 {
 	void	*mlx;		//mlx server struct pointer
@@ -66,7 +67,6 @@ struct s_mlx
 	t_key	key;		//key related stuff
 	t_map	*map;		//linked list with map infos
 };
-typedef struct s_mlx t_mlx;
 
 int     is_on(t_key *key);				//not used yet
 int     ft_key(int key, void *p);		//key pressed to img

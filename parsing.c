@@ -52,50 +52,44 @@ int		*get_nbr(t_map *map)
 	i = 0;
 	j = 0;
 	split = ft_strsplit(map->line, ' ');
-	
 	while (split[i]) //longueur du tableau
 		i++;
 	map->nb = i;
 	//malloc du nombre d'ints
 	if (!(map->px = malloc(sizeof(int) * i)) ||
 			!(map->pc = malloc(sizeof(int) * i)))
-		return (NULL);
+		return (NULL); //error fct
 	while (j < i) //heigh to num + color to num
 	{
-		map->px[j] = ft_atoi(split[j]);
-		if ((split[j] = ft_strchr(split[j], ',')))
-/**/		map->pc[j] = ft_htoi(split[j]);//put here atoi base to convert hex to int
+		map->px[j] = ft_atoi(split[j]); //px_height
+		if ((split[j] = ft_strchr(split[j], ','))) //px_color
+			map->pc[j] = ft_htoi(split[j]);//convert hex to int
 		else
-			map->pc[j] = 0xFFFFFF;
+			map->pc[j] = 0xFFFFFF; //default color
 		j++;
 	}
-
-
-	j = 0;
-	while (j < i)
-	{
-		printf("px:%X\n", map->pc[j++]);
-	}
-
 	return (0);
 }
 
 int		parser(t_mlx *w, char *av)
 {
 	int		fd;
+	t_map	*first;
+	char	*line;
 
-	w->map = malloc(sizeof(*w->map));
+	w->map = malloc(sizeof(*w->map)); //protect
 	fd = open(av, O_RDONLY);
-	//read until line 3 to check if values are ok
-	gnl(fd, &w->map->line);
-	gnl(fd, &w->map->line);
-	gnl(fd, &w->map->line);
+	first = w->map;
+	gnl(fd, &line);
+	w->map->line = line;
 	get_nbr(w->map);
-
-	/*	while (gnl(fd, &line) > 0)
+	while (gnl(fd, &line) > 0)
 	{
-		
+		w->map->next = malloc(sizeof(*w->map)); //protect
+		w->map = w->map->next;
+		w->map->line = line;
+		w->map->next = NULL;
+		get_nbr(w->map);
 	}
-*/
 	return (0);
 }
