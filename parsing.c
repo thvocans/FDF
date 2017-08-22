@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/15 17:04:47 by thvocans          #+#    #+#             */
-/*   Updated: 2017/08/22 23:52:46 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/08/23 01:36:46 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,25 +79,22 @@ int		parser(t_mlx *w, char *av)
 
 	map = w->map;
 	fd = open(av, O_RDONLY);
-	map = malloc(sizeof(*map)); //protect
-	gnl(fd, &line);
-	map->line = line;
-	get_nbr(map);
-/*	while (gnl(fd, &line) > 0)
+	w->p_l = 0;
+	if (gnl(fd, &line) > 0)
 	{
-		w->map->next = malloc(sizeof(*w->map)); //protect
-		w->map = w->map->next;
-		w->map->line = line;
-		w->map->next = NULL;
-		get_nbr(w->map);
+		map = malloc(sizeof(*map)); //protect
+		map->line = line;
+		get_nbr(map);
+		w->p_l = 1;
 	}
-*/	while (gnl(fd, &line) > 0)
+	while (gnl(fd, &line) > 0)
 	{
 		map->next = malloc(sizeof(*map)); //protect
 		map = map->next;
 		map->line = line;
 		map->next = NULL;
 		get_nbr(map);
+		w->p_l++; //line qty;
 	}
 	close(fd);
 	return (0);
