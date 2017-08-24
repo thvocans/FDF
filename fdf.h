@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 18:29:19 by thvocans          #+#    #+#             */
-/*   Updated: 2017/08/23 01:36:46 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/08/24 03:50:41 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ struct s_mlx
 	t_map	*map;		//linked list with map infos
 };
 
+void	printer(t_mlx *w);
 int     is_on(t_key *key);				//not used yet
 int     ft_key(int key, void *p);		//key pressed to img
 int     press(int key, void *p);		//toggle pressed keys

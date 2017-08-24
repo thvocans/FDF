@@ -6,9 +6,11 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 21:59:40 by thvocans          #+#    #+#             */
-/*   Updated: 2017/08/23 01:36:47 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/08/24 03:50:46 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "fdf.h"
 
 void	printer(t_mlx *w)
 {
@@ -19,9 +21,10 @@ void	printer(t_mlx *w)
 	while (map) //line exists 
 	{
 		i = 0; //init
-		while (i < w->map.nb) //current px < total px qty
+		while (i < map->nb) //current px < total px qty
 		{
-			
+		printf("2\n");
+			printf("%d\n",map->px[i++]);
 		}
 		map = map->next; //next line
 	}

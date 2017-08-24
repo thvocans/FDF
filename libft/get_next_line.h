@@ -6,13 +6,13 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/12 16:12:22 by thvocans          #+#    #+#             */
-/*   Updated: 2017/06/15 17:01:40 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/08/23 21:47:57 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define BUFF_SIZE 128
+# define BUFF_SIZE 2048
 # include "libft.h"
 # include <unistd.h>
 # include <stdlib.h>

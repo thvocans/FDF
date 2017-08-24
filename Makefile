@@ -6,7 +6,7 @@
 #    By: thvocans <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/23 19:03:58 by thvocans          #+#    #+#              #
-#    Updated: 2017/06/12 19:24:15 by thvocans         ###   ########.fr        #
+#    Updated: 2017/08/23 22:13:49 by thvocans         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ LIB = $(LIB_FOLD)/libft.a
 
 GLIB = $(GLIB_FOLD)/libmlx.a
 
-SRC = main keyboard parsing
+SRC = main keyboard parsing printer
 
 C_FILE = $(addsuffix .c,$(addprefix $(C_FOLDER),$(SRC)))
 
@@ -47,7 +47,8 @@ $(NAME): $(LIB) $(O_FILE)
 	@gcc -c $< $(FLAGS) -I$(LIB_FOLD) -o $@
 	@echo "\033[32m$@\033[0m"
 
-libft.a:
+#libft.a:
+$(LIB):
 	@$(MAKE) -C libft
 
 libmlx.a:
