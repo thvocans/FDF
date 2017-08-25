@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/15 17:04:47 by thvocans          #+#    #+#             */
-/*   Updated: 2017/08/24 03:50:43 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/08/25 04:23:28 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,9 @@ int		*get_nbr(t_map *map)
 	map->nb = i;
 	//malloc du nombre d'ints
 	if (!(map->px = malloc(sizeof(int) * i)) ||
-			!(map->pc = malloc(sizeof(int) * i)))
+			!(map->pc = malloc(sizeof(int) * i)) ||
+			!(map->p_x = malloc(sizeof(int) * i)) ||
+			!(map->p_y = malloc(sizeof(int) * i)))
 		return (NULL); //error fct
 	while (j < i) //heigh to num + color to num
 	{
@@ -77,12 +79,12 @@ int		parser(t_mlx *w, char *av)
 	t_map	*map;
 	char	*line;
 
+	w->map = malloc(sizeof(*w->map)); //protect
 	map = w->map;
 	fd = open(av, O_RDONLY);
 	w->p_l = 0;
 	if (gnl(fd, &line) > 0)
 	{
-		map = malloc(sizeof(*map)); //protect
 		map->line = line;
 		get_nbr(map);
 		w->p_l = 1;

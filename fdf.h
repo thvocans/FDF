@@ -6,14 +6,14 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 18:29:19 by thvocans          #+#    #+#             */
-/*   Updated: 2017/08/24 03:50:41 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/08/25 04:23:33 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define LARG 640
-# define HAUT 480
+# define LARG 1280
+# define HAUT 960
 
 # include "mlx.h"
 # include <stdio.h>
@@ -60,8 +60,8 @@ struct s_mlx
 {
 	void	*mlx;		//mlx server struct pointer
 	void	*win;		//1st window pointer
-	int		x;			//win h len / number of px in line
-	int		y;			//win v len / number of lines
+	int		x;			//win h len / number of px in line / LARG
+	int		y;			//win v len / number of lines / HAUT
 
 	int		fd;			//open map filedescriptor
 	int		p_l;		//map line qty
