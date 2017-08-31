@@ -6,14 +6,14 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 18:29:19 by thvocans          #+#    #+#             */
-/*   Updated: 2017/08/25 04:23:33 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/08/31 20:15:53 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define LARG 1280
-# define HAUT 960
+# define LARG 640
+# define HAUT 480
 
 # include "mlx.h"
 # include <stdio.h>
