@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/15 17:04:47 by thvocans          #+#    #+#             */
-/*   Updated: 2017/08/25 04:23:28 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/05 13:49:35 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		*get_nbr(t_map *map)
 	split = ft_strsplit(map->line, ' ');
 	while (split[i]) //longueur du tableau
 		i++;
-	map->nb = i;
+	map->m_x = i;
 	//malloc du nombre d'ints
 	if (!(map->px = malloc(sizeof(int) * i)) ||
 			!(map->pc = malloc(sizeof(int) * i)) ||
@@ -82,12 +82,12 @@ int		parser(t_mlx *w, char *av)
 	w->map = malloc(sizeof(*w->map)); //protect
 	map = w->map;
 	fd = open(av, O_RDONLY);
-	w->p_l = 0;
+	w->m_y = 0;
 	if (gnl(fd, &line) > 0)
 	{
 		map->line = line;
 		get_nbr(map);
-		w->p_l = 1;
+		w->m_y = 1;
 	}
 	while (gnl(fd, &line) > 0)
 	{
@@ -96,7 +96,7 @@ int		parser(t_mlx *w, char *av)
 		map->line = line;
 		map->next = NULL;
 		get_nbr(map);
-		w->p_l++; //line qty;
+		w->m_y++; //line qty;
 	}
 	close(fd);
 	return (0);

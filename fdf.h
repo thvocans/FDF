@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 18:29:19 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/04 22:45:43 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/05 22:07:11 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 typedef struct s_map t_map;
 struct s_map
 {
-	int		nb;		//nb of px, len of tab
+	int		m_x;		//nb of px, len of tab
 	char	*line;	//raw line data
 	int		*px;	//p_height
 	int		*pc;	//p_color
@@ -64,7 +64,7 @@ struct s_mlx
 	int		y;			//win v len / number of lines / HAUT
 
 	int		fd;			//open map filedescriptor
-	int		p_l;		//map line qty
+	int		m_y;		//map line qty
 
 	t_img	img;		//img related
 	t_key	key;		//key related stuff
