@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 21:59:40 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/10 13:11:30 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/10 15:34:18 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,18 @@ void	printer(t_mlx *w)
 	t_quat	rot;
 	int     mid;
 	
+	
+	rot = quat_mult(rot_quat(-60, 1, 0, 0), rot_quat(15, 0, 0, 1));
 	mid = (w->x * w->y) / 2 + w->x / 2;        //window middle pixel
-	rot = rot_quat(-60, 1, 0, 0);
 	map = w->map;
 	while (map)
 	{
 		x = 0;
 		while (x < map->m_x)
 		{
+			q = pure_quat(map->p_x[x], map->p_y[x], map->px[x]);
+			q = quat_rot(q, rot);
+			printf("q	w:%f x:%f y:%f z:%f\n",q.w, q.x, q.y, q.z);
 			// write if final value is in window tolerances
 			if (q.x <= w->x / 2  - 1 && q.x >= w->x / 2 * -1 &&
 					q.y <= w->y / 2 - 1 && q.y >= w->y / 2 * -1)
@@ -42,30 +46,6 @@ void	printer(t_mlx *w)
 	mlx_put_image_to_window(w->mlx, w->win, w->img.pt, 0,0);//refresh screen
 }
 
-void	rotate(t_mlx *w)
-{
-	int		x;
-	t_map	*map;
-	t_quat	q;
-	t_quat	rot;
-	
-	rot = rot_quat(-60, 1, 0, 0);
-	map = w->map;
-	while (map)
-	{
-		x = 0;
-		while (x < map->m_x)
-		{
-			//retrieve px 3d Coordinates and project to 2D
-			q = pure_quat(map->p_x[x], map->p_y[x], map->px[x]);
-			q = quat_rot(q, rot);
-			q = quat_rot(q, 
-			//printf("q	w:%f x:%f y:%f z:%f\n",q.w, q.x, q.y, q.z);
-			x++;
-		}
-		map = map->next; //next line
-	}
-}
 void	map_init(t_mlx *w)
 {
 	int		i; //current px

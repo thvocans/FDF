@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 18:29:19 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/10 13:11:28 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/10 15:31:22 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,7 @@ struct s_mlx
 	int		fd;			//open map filedescriptor
 	int		m_y;		//map line qty
 
-	t_quat	rot;		//rotation quaternion
-	t_quat	
+	t_quat	rot;		//rotation quaternion	
 
 	t_img	img;		//img related
 	t_key	key;		//key related stuff
@@ -95,5 +94,6 @@ int		parser(t_mlx *w, char *av);		//reading stuff starts here
 t_quat	quat_rot(t_quat q, t_quat rot);	//
 t_quat	pure_quat(int px_x, int px_y, int px_z); //3 Dim vector to quat
 t_quat	rot_quat(float angle, int axe_x, int axe_y, int axe_z); //create rot q
+t_quat	quat_mult(t_quat q1, t_quat q2);
 
 # endif

@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 15:59:32 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/04 22:42:39 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/10 15:28:35 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		main(int ac, char **av)
 	w.img.pt = mlx_new_image(w.mlx, w.x, w.y);
 	w.img.px = (int*)mlx_get_data_addr(w.img.pt, &(w.img.bpp), &(w.img.ln), &(w.img.end));
 	parser(&w, av[1]);
-//	printf("bpp:%d| line:%d| endian:%d\n",w.img.bpp, w.img.ln, w.img.end);
+	printf("bpp:%d| line:%d| endian:%d\n",w.img.bpp, w.img.ln, w.img.end);
 	map_init(&w);
 	mlx_hook(w.win, 2, (1L<<0), &press, &w);
 	mlx_hook(w.win, 3, (1L<<1), &release, &w);
