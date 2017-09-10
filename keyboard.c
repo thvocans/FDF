@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/14 19:17:43 by thvocans          #+#    #+#             */
-/*   Updated: 2017/06/15 17:11:30 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/10 16:13:00 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int		ft_key(int key, void *p)
 	static int x = 0;
 	static int y = 0;
 	static int pc = 0xFFFFFF;
-
 	w = (t_mlx*)p;
 	if ((w->key.down[6]) & (1 << 5)) //esc
 		exit(0);
@@ -42,14 +41,14 @@ int		ft_key(int key, void *p)
 		pc = 0xFF0000;//red
 	if ((w->key.down[14]) & (1 << 5)) //del
 		pc = 0x000000; //black
-	if ((w->key.down[15]) & (1 << 3) && (w->img.px[LARG * y + --x] = pc) == pc) //left 123
-		mlx_put_image_to_window(w->mlx, w->win, w->img.pt, 0,0);
-	if ((w->key.down[15]) & (1 << 4) && (w->img.px[LARG * y + ++x] = pc) == pc) // right 124
-		mlx_put_image_to_window(w->mlx, w->win, w->img.pt, 0,0);
-	if ((w->key.down[15]) & (1 << 5) && (w->img.px[LARG * ++y + x] = pc) == pc) // down
-		mlx_put_image_to_window(w->mlx, w->win, w->img.pt, 0,0);
-	if ((w->key.down[15]) & (1 << 6) && (w->img.px[LARG * --y + x] = pc) == pc) // up
-		mlx_put_image_to_window(w->mlx, w->win, w->img.pt, 0,0);
+	if ((w->key.down[15]) & (1 << 3)) //left 123
+		printer(w, rot_quat(-5, 0, 1, 0));
+	if ((w->key.down[15]) & (1 << 4)) // right 124
+		printer(w, rot_quat(5, 0, 1, 0));
+	if ((w->key.down[15]) & (1 << 5)) // down
+		printer(w, rot_quat(5, 1, 0, 0));
+	if ((w->key.down[15]) & (1 << 6)) // up
+		printer(w, rot_quat(-5, 1, 0, 0));
 	return (0);
 }
 
