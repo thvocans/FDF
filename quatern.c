@@ -6,21 +6,11 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 17:29:45 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/08 16:29:45 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/10 13:04:35 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <math.h>
-#include <stdio.h>
-
-typedef struct s_quat	t_quat;
-struct s_quat
-{
-	float	w;
-	float	x;
-	float	y;
-	float	z;
-};
+#include "fdf.h"
 
 typedef struct s_vec3	t_vec3;
 struct s_vec3
@@ -30,7 +20,7 @@ struct s_vec3
 	float	z;
 };
 
-t_quat		quat_rot(float angle, int axe_x, int axe_y, int axe_z)
+t_quat		rot_quat(float angle, int axe_x, int axe_y, int axe_z)
 {
 	t_quat q;
 	
@@ -92,9 +82,18 @@ t_quat	vec_cross(t_quat u, t_quat v)
 	return (out);
 }
 
-t_quat		quat_rotation(t_quat vec, t_quat rot)
+t_quat		quat_rot(t_quat vec, t_quat rot)
 {
-	float	dot1;
+	vec = quat_mult(vec, rot);					//clockwise
+	vec = quat_mult(quat_inverse(rot), vec);	//clockwise
+//	vec = quat_mult(rot, vec);					//counter
+//	vec = quat_mult(vec, quat_inverse(rot));	//counter
+	return (vec);
+}
+
+
+
+/*	float	dot1;
 	float	dot2;
 	t_quat	cross;
 	t_quat	out;
@@ -111,9 +110,9 @@ t_quat		quat_rotation(t_quat vec, t_quat rot)
 	out.z = 2 * dot1 * vec.z + (vec.w * vec.w - dot2) * rot.z\
 			+ 2 * vec.w * cross.z;
 	return (out);
-}
+}*/
 
-int main()
+int main(int ac, char **av)
 {
 	t_quat q1;
 	t_quat rot;
@@ -122,9 +121,9 @@ int main()
 	t_quat new;
 	t_quat rotinv;
 
-	q1 = pure_quat(10, 10, 2);
-	rot = quat_rot(90, 0, 1, 0); // 90 clockwise
-//	rot2 = quat_rot(90, 0, 0, 1); // 90 clockwise
+	q1 = pure_quat(10, 10, 5);
+	rot = rot_quat(atoi(av[1]), atoi(av[2]), atoi(av[3]),atoi(av[4])); // 90 clockwise
+//	rot2 = rot_quat(90, 0, 0, 1); // 90 clockwise
 	
 	rotinv = quat_inverse(rot);
 
@@ -133,14 +132,15 @@ int main()
 	new = quat_mult(q1, rot);		//clockwise
 	new = quat_mult(rotinv, new);	//clockwise
 	
-	if (q1.z != 0)
-	{
-		q1.x /= q1.z;
-		q1.y /= q1.z;
-	}
+//	if (q1.z != 0)
+//	{
+//		q1.x /= q1.z;
+//		q1.y /= q1.z;
+//	}
 
-	printf("q1	w:%f x:%f y:%f z:%f\n",q1.w, q1.x, q1.y, q1.z);
-	printf("rot	w:%f x:%f y:%f z:%f\n",rot.w, rot.x, rot.y, rot.z);
+//	printf("q1	w:%f x:%f y:%f z:%f\n",q1.w, q1.x, q1.y, q1.z);
+//	printf("rot	w:%f x:%f y:%f z:%f\n",rot.w, rot.x, rot.y, rot.z);
 //	printf("q1	w:%f x:%f y:%f z:%f\n",q1.w, q1.x, q1.y, q1.z);
 	printf("new	w:%f x:%f y:%f z:%f\n",new.w, new.x, new.y, new.z);
 }
+

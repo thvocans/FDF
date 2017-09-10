@@ -6,17 +6,18 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 18:29:19 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/08 16:29:46 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/10 13:11:28 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
-# define LARG 640
-# define HAUT 480
+# define LARG 1280
+# define HAUT 860
 
 # include "mlx.h"
 # include <stdio.h>
+# include <math.h>
 # include <fcntl.h>
 # include "./libft/libft.h"
 
@@ -55,6 +56,15 @@ struct s_key
 	unsigned int	*pt;		//pt to down tab
 };
 
+typedef struct s_quat t_quat;
+struct s_quat
+{
+	float	w;
+	float	x;
+	float	y;
+	float	z;
+};
+
 typedef struct s_mlx t_mlx;
 struct s_mlx
 {
@@ -65,6 +75,9 @@ struct s_mlx
 
 	int		fd;			//open map filedescriptor
 	int		m_y;		//map line qty
+
+	t_quat	rot;		//rotation quaternion
+	t_quat	
 
 	t_img	img;		//img related
 	t_key	key;		//key related stuff
@@ -79,4 +92,8 @@ int     press(int key, void *p);		//toggle pressed keys
 int     release(int key, void *p);		//toggle released keys
 void    ft_init_key(t_key *key);		//init all to 0
 int		parser(t_mlx *w, char *av);		//reading stuff starts here
+t_quat	quat_rot(t_quat q, t_quat rot);	//
+t_quat	pure_quat(int px_x, int px_y, int px_z); //3 Dim vector to quat
+t_quat	rot_quat(float angle, int axe_x, int axe_y, int axe_z); //create rot q
+
 # endif
