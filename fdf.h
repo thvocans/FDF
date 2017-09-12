@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 18:29:19 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/12 17:44:05 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/12 19:57:44 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,6 @@ clock_t startm, stopm;
 #define START if ( (startm = clock()) == -1) {printf("Error calling clock");exit(1);}
 #define STOP if ( (stopm = clock()) == -1) {printf("Error calling clock");exit(1);}
 #define PRINTTIME printf( "%.9g\n", ((double)stopm-startm)/CLOCKS_PER_SEC);
-
-
-
 
 typedef struct s_map t_map;
 struct s_map

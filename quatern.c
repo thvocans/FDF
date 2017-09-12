@@ -6,19 +6,11 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 17:29:45 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/12 15:23:03 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/12 19:58:15 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-typedef struct s_vec3	t_vec3;
-struct s_vec3
-{
-	double	x;
-	double	y;
-	double	z;
-};
 
 t_quat		rot_quat(double angle, int axe_x, int axe_y, int axe_z)
 {

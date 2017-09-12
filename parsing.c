@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/15 17:04:47 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/05 13:49:35 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/12 19:21:31 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,10 @@ int		parser(t_mlx *w, char *av)
 		map = map->next;
 		map->line = line;
 		map->next = NULL;
+		START;
 		get_nbr(map);
+		STOP;
+		PRINTTIME;
 		w->m_y++; //line qty;
 	}
 	close(fd);
