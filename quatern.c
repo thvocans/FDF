@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/05 17:29:45 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/10 15:18:40 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/12 15:23:03 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 typedef struct s_vec3	t_vec3;
 struct s_vec3
 {
-	float	x;
-	float	y;
-	float	z;
+	double	x;
+	double	y;
+	double	z;
 };
 
-t_quat		rot_quat(float angle, int axe_x, int axe_y, int axe_z)
+t_quat		rot_quat(double angle, int axe_x, int axe_y, int axe_z)
 {
 	t_quat q;
 	
 	angle = angle * (M_PI / 180);
-	q.w = cosf(angle / 2);				//floats
+	q.w = cosf(angle / 2);				//doubles
 	q.x = axe_x * sinf(angle / 2);
 	q.y = axe_y * sinf(angle / 2);
 	q.z = axe_z * sinf(angle / 2);
@@ -63,7 +63,7 @@ t_quat		pure_quat(int px_x, int px_y, int px_z) //3 Dim vector to quat
 	return (pure);
 }
 
-float		vec_dot(t_quat u, t_quat v)
+double		vec_dot(t_quat u, t_quat v)
 {
 	return ((u.x * v.x) + (u.y * v.y) + (u.z * v.z));
 }
