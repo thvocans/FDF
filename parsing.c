@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/15 17:04:47 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/12 19:21:31 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/15 01:07:30 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,19 @@ int		ft_htoi(char *str)
 	}
 	return (out);
 }
+void	ft_free(char **str)
+{
+	int i;
 
+	i = 0;
+	while (str[i])
+	{
+		printf("%d\n",i);
+		free(str[i++]);
+	}
+	free(str);
+	str = NULL;
+}
 int		*get_nbr(t_map *map)
 {
 	int		i;
@@ -51,7 +63,9 @@ int		*get_nbr(t_map *map)
 	
 	i = 0;
 	j = 0;
+//	getchar();
 	split = ft_strsplit(map->line, ' ');
+//	getchar();
 	while (split[i]) //longueur du tableau
 		i++;
 	map->m_x = i;
@@ -68,8 +82,10 @@ int		*get_nbr(t_map *map)
 			map->pc[j] = ft_htoi(split[j]);//convert hex to int
 		else
 			map->pc[j] = 0xFFFFFF; //default color
+		printf("%p\n",split[j]);
 		j++;
 	}
+//	getchar();
 	return (0);
 }
 
