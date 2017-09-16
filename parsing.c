@@ -42,16 +42,16 @@ int		ft_htoi(char *str)
 	}
 	return (out);
 }
-void	ft_free(char **str)
+void	ft_free(void **str)
 {
 	int i;
 
 	i = 0;
+	if (!str)
+		return ;
 	while (str[i])
-	{
-		printf("%d\n",i);
 		free(str[i++]);
-	}
+	printf("free\n");
 	free(str);
 	str = NULL;
 }
@@ -60,12 +60,11 @@ int		*get_nbr(t_map *map)
 	int		i;
 	int		j;
 	char	**split;
+	char	*color;
 	
 	i = 0;
 	j = 0;
-//	getchar();
 	split = ft_strsplit(map->line, ' ');
-//	getchar();
 	while (split[i]) //longueur du tableau
 		i++;
 	map->m_x = i;
@@ -77,15 +76,17 @@ int		*get_nbr(t_map *map)
 		return (NULL); //error fct
 	while (j < i) //heigh to num + color to num
 	{
+//		printf("%p	%p\n",split[j], color);
 		map->px[j] = ft_atoi(split[j]); //px_height
-		if ((split[j] = ft_strchr(split[j], ','))) //px_color
-			map->pc[j] = ft_htoi(split[j]);//convert hex to int
+		if ((color = ft_strchr(split[j], ','))) //px_color
+			map->pc[j] = ft_htoi(color);//convert hex to int
 		else
 			map->pc[j] = 0xFFFFFF; //default color
-		printf("%p\n",split[j]);
+//		printf("%p	%p\n",split[j], color);
+		free(split[j]);
 		j++;
 	}
-//	getchar();
+	free(split);
 	return (0);
 }
 
