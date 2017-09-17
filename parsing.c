@@ -76,13 +76,11 @@ int		*get_nbr(t_map *map)
 		return (NULL); //error fct
 	while (j < i) //heigh to num + color to num
 	{
-//		printf("%p	%p\n",split[j], color);
 		map->px[j] = ft_atoi(split[j]); //px_height
 		if ((color = ft_strchr(split[j], ','))) //px_color
 			map->pc[j] = ft_htoi(color);//convert hex to int
 		else
 			map->pc[j] = 0xFFFFFF; //default color
-//		printf("%p	%p\n",split[j], color);
 		free(split[j]);
 		j++;
 	}
@@ -112,12 +110,12 @@ int		parser(t_mlx *w, char *av)
 		map = map->next;
 		map->line = line;
 		map->next = NULL;
-		START;
 		get_nbr(map);
-		STOP;
-		PRINTTIME;
 		w->m_y++; //line qty;
 	}
 	close(fd);
+//getchar();
+	gnl(fd, NULL);
+//getchar();
 	return (0);
 }

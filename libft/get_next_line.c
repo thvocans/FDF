@@ -12,7 +12,7 @@
 
 #include "get_next_line.h"
 
-t_gnl	*ft_create(int fd)
+static t_gnl	*ft_create(int fd)
 {
 	t_gnl	*out;
 
@@ -28,7 +28,7 @@ t_gnl	*ft_create(int fd)
 	return (out);
 }
 
-int		ft_read(int fd, t_gnl *pt)
+static int		ft_read(int fd, t_gnl *pt)
 {
 	int		i;
 	ssize_t	bsiz;
@@ -52,7 +52,7 @@ int		ft_read(int fd, t_gnl *pt)
 	return (bsiz);
 }
 
-int		ft_store(t_gnl *pt, char **line)
+static int		ft_store(t_gnl *pt, char **line)
 {
 	size_t			i;
 
@@ -66,15 +66,27 @@ int		ft_store(t_gnl *pt, char **line)
 	pt->itm += (pt->str[pt->itm + i] != '\0') ? i + 1 : i;
 	return (1);
 }
+#include <stdio.h>
+static int		ft_free(int fd, t_gnl *pt, char **line)
+{
+	if (line == NULL && fd > 0)
+	{
+		while (pt != NULL && pt->fd != fd)
+			pt = pt->next;
+		if (pt != NULL)
+			free(pt->str);
+	}
+	return (-1);
+}
 
-int		gnl(const int fd, char **line)
+int				gnl(const int fd, char **line)
 {
 	static t_gnl	*var;
 	t_gnl			*pt;
 
 	pt = var;
 	if (line == NULL || fd < 0)
-		return (-1);
+		return (ft_free(fd, pt, line));
 	if (pt != NULL)
 	{
 		while (pt != NULL && pt->fd != fd)

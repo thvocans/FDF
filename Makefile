@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-.PHONY: all fclean clean re
+.PHONY: all fclean clean re libmlx.a libclean libfclean mlxclean libft.a libmlx.a relib
 
 NAME = exe
 
@@ -47,7 +47,8 @@ $(NAME): $(LIB) $(O_FILE)
 	@gcc -c $< $(FLAGS) -I$(LIB_FOLD) -o $@
 	@echo "\033[32m$@\033[0m"
 
-#libft.a:
+libft.a: $(LIB)
+
 $(LIB):
 	@$(MAKE) -C libft
 
@@ -70,5 +71,7 @@ libfclean:
 fclean: clean libfclean
 	@/bin/rm -f $(NAME)
 	@echo "\033[32mrm $(NAME)\033[0m"
+
+relib: libfclean libft.a
 
 re: fclean all
