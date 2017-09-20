@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 18:29:19 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/12 19:57:44 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/20 22:41:43 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ struct s_img
 //values returned by get_data_addr
 	int		*px;		//img string casted : int = px color
 						//bits : AARRGGBB white : 0xFFFFFF
+	int		**xy;
 	int		ln;			//line len
 	int		bpp;		//bits per pixel
 	int		end;		//endian

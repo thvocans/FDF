@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/05/12 16:12:14 by thvocans          #+#    #+#             */
-/*   Updated: 2017/06/15 17:02:50 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/20 21:36:37 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static int		ft_store(t_gnl *pt, char **line)
 	pt->itm += (pt->str[pt->itm + i] != '\0') ? i + 1 : i;
 	return (1);
 }
-#include <stdio.h>
+
 static int		ft_free(int fd, t_gnl *pt, char **line)
 {
 	if (line == NULL && fd > 0)

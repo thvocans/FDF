@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 21:59:40 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/12 17:44:06 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/20 22:41:20 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,10 +103,8 @@ void	map_init(t_mlx *w)
 		{		//go up entire lines	step * haut map / 2 + (line * step)
 			map->p_y[i] = (j * w->step) - w->step * (w->m_y / 2); // coor relatives
 			map->p_x[i] = (i * w->step) - w->step * (map->m_x / 2); //coor relatives
-//	printf("p_y%d|p_x%d|i%d|\n", map->p_y[i], map->p_x[i], i);
 			i++;
 		}
-//		printf("j:%d\n", j);
 		j++;
 		map = map->next; //next line
 	}
