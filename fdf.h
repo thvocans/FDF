@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 18:29:19 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/20 22:41:43 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/22 00:37:02 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,7 @@ t_quat	quat_rot(t_quat q, t_quat rot);	//
 t_quat	pure_quat(int px_x, int px_y, int px_z); //3 Dim vector to quat
 t_quat	rot_quat(double angle, int axe_x, int axe_y, int axe_z); //create rot q
 t_quat	quat_mult(t_quat q1, t_quat q2);
+
+void	ft_join_px(t_mlx *w);
 
 # endif

@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 21:59:40 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/20 22:41:20 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/22 01:11:03 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,14 @@ void	printer(t_mlx *w, t_quat rot)
 			// write if final value is in window tolerances
 //			if (q.x <= w->x / 2  - 1 && q.x >= w->x / 2 * -1 &&
 //					q.y <= w->y / 2 - 1 && q.y >= w->y / 2 * -1)
-			if (q.x <= t  - 1 && q.x >= -t &&
-					q.y <= u - 1 && q.y >= -u)
+			if (q.x <= t  - 1 && q.x >= -t && q.y <= u - 1 && q.y >= -u)
 				w->img.px[mid + (int)q.x + ((int)q.y * w->x)] = map->pc[x];
 			x++;
 		}
 		map = map->next; //next line
 	}
+	if (w->step != 1)
+		ft_join_px(w);
 	mlx_put_image_to_window(w->mlx, w->win, w->img.pt, 0,0);//refresh screen
 }
 
