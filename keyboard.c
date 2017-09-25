@@ -42,13 +42,13 @@ int		ft_key(int key, void *p)
 	if ((w->key.down[14]) & (1 << 5)) //del
 		pc = 0x000000; //black
 	if ((w->key.down[15]) & (1 << 3)) //left 123
-		printer(w, rot_quat(5, 0, 1, 0));
+		store_quat(w, rot_quat(5, 0, 1, 0));
 	if ((w->key.down[15]) & (1 << 4)) // right 124
-		printer(w, rot_quat(-5, 0, 1, 0));
+		store_quat(w, rot_quat(-5, 0, 1, 0));
 	if ((w->key.down[15]) & (1 << 5)) // down
-		printer(w, rot_quat(5, 1, 0, 0));
+		store_quat(w, rot_quat(5, 1, 0, 0));
 	if ((w->key.down[15]) & (1 << 6)) // up
-		printer(w, rot_quat(-5, 1, 0, 0));
+		store_quat(w, rot_quat(-5, 1, 0, 0));
 	if ((w->key.down[9]) & (1 << 6) && w->step == (w->step--)) // - sign 78
 		zoom(w);
 	if ((w->key.down[8]) & (1 << 5) && w->step == (w->step++)) // + sign 69

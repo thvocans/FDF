@@ -17,29 +17,19 @@ void	clear_img(t_mlx *w)
 	int i;
 
 	i = 0;
-	START;
 	while (i < (LARG * HAUT))
-	{
 		w->img.px[i++] = 0;
-	}
-	STOP;
-	PRINTTIME;
 }
 
 /*
 ** Reads pixels datas stores to img, then put img to window
 */
-void	printer(t_mlx *w, t_quat rot)
+
+void	store_quat(t_mlx *w, t_quat rot)
 {
 	int		x;
 	t_map	*map;
-	t_quat	q;
-	int     mid;
-	int	t = w->x / 2;
-	int	u = w->y / 2;
-	
-	clear_img(w);
-	mid = (w->x * w->y) / 2 + w->x / 2;        //window middle pixel
+
 	w->rot = quat_mult(w->rot, rot);
 	map = w->map;
 	while (map)
@@ -47,19 +37,40 @@ void	printer(t_mlx *w, t_quat rot)
 		x = 0;
 		while (x < map->m_x)
 		{
-			q = pure_quat(map->p_x[x], map->p_y[x], map->px[x]);
-			q = quat_rot(q, w->rot);
-			// write if final value is in window tolerances
-//			if (q.x <= w->x / 2  - 1 && q.x >= w->x / 2 * -1 &&
-//					q.y <= w->y / 2 - 1 && q.y >= w->y / 2 * -1)
-			if (q.x <= t  - 1 && q.x >= -t && q.y <= u - 1 && q.y >= -u)
-				w->img.px[mid + (int)q.x + ((int)q.y * w->x)] = map->pc[x];
+			map->q[x] = pure_quat(map->p_x[x], map->p_y[x], map->px[x]);
+			map->q[x] = quat_rot(map->q[x], w->rot);
 			x++;
 		}
 		map = map->next; //next line
 	}
-	if (w->step != 1)
-		ft_join_px(w);
+	printer(w);
+}
+void	printer(t_mlx *w)
+{
+	int		x;
+	t_map	*map;
+	int     mid;
+	int	t = w->x / 2;
+	int	u = w->y / 2;
+	
+	clear_img(w);
+	mid = (w->x * (w->y + 1)) / 2;        //window middle pixel
+	map = w->map;
+	while (map)
+	{
+		x = 0;
+		while (x < map->m_x)
+		{
+			// write if final value is in window tolerances
+			if (map->q[x].x <= t - 1 && map->q[x].x >= -t &&
+				map->q[x].y <= u - 1 && map->q[x].y >= -u)
+				w->img.px[mid + (int)map->q[x].x + ((int)map->q[x].y * w->x)] = map->pc[x];
+			x++;
+		}
+		map = map->next; //next line
+	}
+//	if (w->step != 1)
+//		ft_join_px(w);
 	mlx_put_image_to_window(w->mlx, w->win, w->img.pt, 0,0);//refresh screen
 }
 
@@ -84,7 +95,7 @@ void	zoom(t_mlx *w)
 		j++;
 		map = map->next;
 	}
-	printer(w, rot_quat(0, 1, 0, 0));
+	store_quat(w, rot_quat(0, 1, 0, 0));
 }
 
 void	map_init(t_mlx *w)
@@ -94,20 +105,7 @@ void	map_init(t_mlx *w)
 	t_map	*map;
 
 	w->step = 2;					//initial space step
-	j = 0;							//current line printing
-	map = w->map;					//working link
 	w->rot = rot_quat(0, 1, 0, 0);
-	while (map)						//line exists 
-	{
-		i = 0;						//init
-		while (i < map->m_x)			//current px < total px qty
-		{		//go up entire lines	step * haut map / 2 + (line * step)
-			map->p_y[i] = (j * w->step) - w->step * (w->m_y / 2); // coor relatives
-			map->p_x[i] = (i * w->step) - w->step * (map->m_x / 2); //coor relatives
-			i++;
-		}
-		j++;
-		map = map->next; //next line
-	}
-	printer(w, quat_mult(rot_quat(-60, 1, 0, 0), rot_quat(15, 0, 0, 1)));
+	zoom(w);
+	store_quat(w, quat_mult(rot_quat(-60, 1, 0, 0), rot_quat(15, 0, 0, 1)));
 }

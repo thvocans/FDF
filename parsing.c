@@ -72,7 +72,8 @@ int		*get_nbr(t_map *map)
 	if (!(map->px = malloc(sizeof(int) * i)) ||
 			!(map->pc = malloc(sizeof(int) * i)) ||
 			!(map->p_x = malloc(sizeof(int) * i)) ||
-			!(map->p_y = malloc(sizeof(int) * i)))
+			!(map->p_y = malloc(sizeof(int) * i)) ||
+			!(map->q = malloc(sizeof(t_quat) * i)))
 		return (NULL); //error fct
 	while (j < i) //heigh to num + color to num
 	{
