@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/08 18:29:19 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/22 00:37:02 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/26 20:07:56 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,21 @@
 # include <fcntl.h>
 # include "./libft/libft.h"
 
-#include <time.h>
-clock_t startm, stopm;
-#define START if ( (startm = clock()) == -1) {printf("Err calling clk");exit(1);}
-#define STOP if ( (stopm = clock()) == -1) {printf("Err calling clk");exit(1);}
-#define PRINTTIME printf( "%.9g\n", ((double)stopm-startm)/CLOCKS_PER_SEC);
+# include <time.h>
 
-typedef struct s_map t_map;
-typedef struct s_quat t_quat;
-typedef struct s_img t_img;
-typedef struct s_key t_key;
-typedef struct s_mlx t_mlx;
+clock_t	startm;
+clock_t stopm;
+# define START if ( (startm = clock()) == -1) {printf("Err calling clk");exit(1);}
+# define STOP if ( (stopm = clock()) == -1) {printf("Err calling clk");exit(1);}
+# define PRINTTIME printf( "%.9g\n", ((double)stopm-startm)/CLOCKS_PER_SEC);
 
-struct s_map
+typedef struct s_map	t_map;
+typedef struct s_quat	t_quat;
+typedef struct s_img	t_img;
+typedef struct s_key	t_key;
+typedef struct s_mlx	t_mlx;
+
+struct	s_map
 {
 	int		m_x;		//nb of px, len of tab
 	char	*line;	//raw line data
@@ -45,20 +47,19 @@ struct s_map
 	t_map	*next;
 };
 
-struct s_img
+struct	s_img
 {
 	void	*pt;		//struct img pointer new img
 
 //values returned by get_data_addr
-	int		*px;		//img string casted : int = px color
-						//bits : AARRGGBB white : 0xFFFFFF
+	int		*px;		//img string casted : int = px color //bits : AARRGGBB white : 0xFFFFFF
 	int		**xy;
 	int		ln;			//line len
 	int		bpp;		//bits per pixel
 	int		end;		//endian
 };
 
-struct s_key
+struct	s_key
 {
 	unsigned char	down[40];	//key pressed tab
 	short			oct;		//which oct to check
@@ -67,7 +68,7 @@ struct s_key
 	unsigned int	*pt;		//pt to down tab
 };
 
-struct s_quat
+struct	s_quat
 {
 	double	w;
 	double	x;
@@ -75,7 +76,7 @@ struct s_quat
 	double	z;
 };
 
-struct s_mlx
+struct	s_mlx
 {
 	void	*mlx;		//mlx server struct pointer
 	void	*win;		//1st window pointer
@@ -85,8 +86,9 @@ struct s_mlx
 	int		fd;			//open map filedescriptor
 	int		m_y;		//map line qty
 
-	t_quat	rot;		//rotation quaternion	
+	t_quat	rot;		//rotation quaternion
 	int		step;		//zoom step
+	int		mid;
 
 	t_img	img;		//img related
 	t_key	key;		//key related stuff
@@ -109,4 +111,4 @@ t_quat	quat_mult(t_quat q1, t_quat q2);
 void	store_quat(t_mlx *w, t_quat rot);
 void	ft_join_px(t_mlx *w);
 
-# endif
+#endif

@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/08/22 21:59:40 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/22 01:11:03 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/26 20:20:32 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,10 @@ void	printer(t_mlx *w)
 {
 	int		x;
 	t_map	*map;
-	int     mid;
 	int	t = w->x / 2;
 	int	u = w->y / 2;
 	
 	clear_img(w);
-	mid = (w->x * (w->y + 1)) / 2;        //window middle pixel
 	map = w->map;
 	while (map)
 	{
@@ -64,13 +62,13 @@ void	printer(t_mlx *w)
 			// write if final value is in window tolerances
 			if (map->q[x].x <= t - 1 && map->q[x].x >= -t &&
 				map->q[x].y <= u - 1 && map->q[x].y >= -u)
-				w->img.px[mid + (int)map->q[x].x + ((int)map->q[x].y * w->x)] = map->pc[x];
+				w->img.px[w->mid + (int)map->q[x].x + ((int)map->q[x].y * w->x)] = map->pc[x];
 			x++;
 		}
 		map = map->next; //next line
 	}
-//	if (w->step != 1)
-//		ft_join_px(w);
+	if (w->step != 1)
+		ft_join_px(w);
 	mlx_put_image_to_window(w->mlx, w->win, w->img.pt, 0,0);//refresh screen
 }
 
@@ -104,8 +102,9 @@ void	map_init(t_mlx *w)
 	int		j;
 	t_map	*map;
 
-	w->step = 2;					//initial space step
+	w->step = 25;					//initial space step
 	w->rot = rot_quat(0, 1, 0, 0);
+	w->mid = (w->x * (w->y + 1)) / 2;        //window middle pixel
 	zoom(w);
 	store_quat(w, quat_mult(rot_quat(-60, 1, 0, 0), rot_quat(15, 0, 0, 1)));
 }

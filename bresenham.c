@@ -6,53 +6,92 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/09/22 00:36:13 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/22 01:11:05 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/26 20:07:47 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_join_px(t_mlx *w)
+#include "fdf.h"
+
+static void	ft_dunno(t_mlx *w, t_map *map, int x, int *t)
 {
-	int	dx = abs(x1-x0);
-	int	sx = x0<x1 ? 1 : -1;
-	int	dy = abs(y1-y0);
-	int	sy = y0<y1 ? 1 : -1; 
-	int	err = (dx>dy ? dx : -dy)/2;
-	int	e2;
+	int		wx;
+	int		u;
 
-	int x;
-	int t = w->x / 2;
-	int u = w->y / 2;
-
-	t_map *map;
-	map = w->map;
-	while (map->next)
+	wx = w->x / 2;
+	u = w->y / 2;
+	while (1)
 	{
-		while (x < map->m_x)
+		if (t[6] <= wx - 1 && t[6] >= -wx && t[8] <= u - 1 && t[8] >= -u)
+			w->img.px[w->mid + t[6] + (t[8] * w->x)] = map->pc[x];
+		if (t[6] == t[7] && t[8] == t[9])
+			return ;
+		t[5] = t[4];
+		if (t[5] > -t[0])
+			t[4] -= t[1];
+		if (t[5] > -t[0])
+			t[6] += t[2];
+		if (t[5] < t[1])
+			t[4] += t[0];
+		if (t[5] < t[1])
+			t[8] += t[3];
+	}
+}
+
+static void	ft_jpx_y(t_mlx *w, t_map *map, int x)
+{
+	int		t[10];
+
+	t[6] = (int)map->q[x].x;
+	t[7] = (int)map->next->q[x].x;
+	t[8] = (int)map->q[x].y;
+	t[9] = (int)map->next->q[x].y;
+	t[0] = abs(t[7] - t[6]);
+	t[1] = abs(t[9] - t[8]);
+	t[2] = t[6] < t[7] ? 1 : -1;
+	t[3] = t[8] < t[9] ? 1 : -1;
+	t[4] = (t[0] > t[1] ? t[0] : -t[1]) / 2;
+	ft_dunno(w, map, x, t);
+}
+
+static void	ft_jpx_x(t_mlx *w, t_map *map, int x)
+{
+	int		t[10];
+
+	t[6] = (int)map->q[x].x;
+	t[7] = (int)map->q[x + 1].x;
+	t[8] = (int)map->q[x].y;
+	t[9] = (int)map->q[x + 1].y;
+	t[0] = abs(t[7] - t[6]);
+	t[1] = abs(t[9] - t[8]);
+	t[2] = t[6] < t[7] ? 1 : -1;
+	t[3] = t[8] < t[9] ? 1 : -1;
+	t[4] = (t[0] > t[1] ? t[0] : -t[1]) / 2;
+	ft_dunno(w, map, x, t);
+}
+
+void		ft_join_px(t_mlx *w)
+{
+	int		t[2];
+	int		x;
+	t_map	*map;
+
+	map = w->map;
+	while (map)
+	{
+		x = 0;
+		while (x + 1 < map->m_x)
 		{
-			if (q.x <= t  - 1 && q.x >= -t && q.y <= u - 1 && q.y >= -u)
+			t[0] = (int)map->q[x].x;
+			t[1] = (int)map->q[x].y;
+			ft_jpx_x(w, map, x);
+			if (map->next)
 			{
-				dx = abs(x1-x0);
-
-				while (1)
-				{
-	w->img.px[mid + (int)map->q[x].x + ((int)map->q[x].y * w->x)] = map->pc[x];
-					if ((int)map->q[x].x == (int)map->q[x + 1].x &&
-						(int)map->q[x].y == (int)map->q[x + 1].y)
-						break;
-					e2 = err;
-					if (e2 > -dx)
-					{
-						err -= dy;
-						x0 += sx;
-					}
-					if (e2 < dy)
-					{
-						err += dx;
-						y0 += sy;
-					}
-				}
-
+				if (x == 0)
+					ft_jpx_y(w, map, x);
+				else
+					ft_jpx_y(w, map, x + 1);
 			}
+			x++;
 		}
 		map = map->next;
 	}

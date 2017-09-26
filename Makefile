@@ -6,7 +6,7 @@
 #    By: thvocans <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/23 19:03:58 by thvocans          #+#    #+#              #
-#    Updated: 2017/09/10 11:45:56 by thvocans         ###   ########.fr        #
+#    Updated: 2017/09/26 13:07:47 by thvocans         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ LIB = $(LIB_FOLD)/libft.a
 
 GLIB = $(GLIB_FOLD)/libmlx.a
 
-SRC = main keyboard parsing printer quatern
+SRC = main keyboard parsing printer quatern bresenham
 
 C_FILE = $(addsuffix .c,$(addprefix $(C_FOLDER),$(SRC)))
 

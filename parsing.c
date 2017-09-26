@@ -6,7 +6,7 @@
 /*   By: thvocans <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/06/15 17:04:47 by thvocans          #+#    #+#             */
-/*   Updated: 2017/09/15 01:07:30 by thvocans         ###   ########.fr       */
+/*   Updated: 2017/09/26 19:48:22 by thvocans         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,9 @@ int		ft_htoi(char *str)
 	int		out;
 	char	oct;
 
-	i = 0;
-	out = 0;
-	if (str[0] == ',')
+	if ((i = 0) == 0 && str[0] == ',')
 		i++;
-	if (str[1] == '0')
+	if ((out = 0) == 0 && str[1] == '0')
 		i++;
 	if (str[2] == 'x' || str[2] == 'X')
 		i++;
@@ -30,11 +28,11 @@ int		ft_htoi(char *str)
 	{
 		oct = str[i];
 		if (ft_isdigit(str[i]))
-				oct = str[i] - '0';
+			oct = str[i] - '0';
 		else if (str[i] >= 'a' && str[i] <= 'f')
-				oct = str[i] - 'a' + 10;
+			oct = str[i] - 'a' + 10;
 		else if (str[i] >= 'A' && str[i] <= 'F')
-				oct = str[i] - 'A' + 10;
+			oct = str[i] - 'A' + 10;
 		else
 			break ;
 		out = (out << 4) + oct;
@@ -42,6 +40,7 @@ int		ft_htoi(char *str)
 	}
 	return (out);
 }
+
 void	ft_free(void **str)
 {
 	int i;
@@ -55,27 +54,25 @@ void	ft_free(void **str)
 	free(str);
 	str = NULL;
 }
-int		*get_nbr(t_map *map)
+
+void	get_nbr(t_map *map)
 {
-	int		i;
 	int		j;
 	char	**split;
 	char	*color;
-	
-	i = 0;
+
+	map->m_x = 0;
 	j = 0;
 	split = ft_strsplit(map->line, ' ');
-	while (split[i]) //longueur du tableau
-		i++;
-	map->m_x = i;
-	//malloc du nombre d'ints
-	if (!(map->px = malloc(sizeof(int) * i)) ||
-			!(map->pc = malloc(sizeof(int) * i)) ||
-			!(map->p_x = malloc(sizeof(int) * i)) ||
-			!(map->p_y = malloc(sizeof(int) * i)) ||
-			!(map->q = malloc(sizeof(t_quat) * i)))
-		return (NULL); //error fct
-	while (j < i) //heigh to num + color to num
+	while (split[map->m_x]) //longueur du tableau
+		map->m_x++;
+	if (!(map->px = malloc(sizeof(int) * map->m_x)) ||
+			!(map->pc = malloc(sizeof(int) * map->m_x)) ||
+			!(map->p_x = malloc(sizeof(int) * map->m_x)) ||
+			!(map->p_y = malloc(sizeof(int) * map->m_x)) ||
+			!(map->q = malloc(sizeof(t_quat) * map->m_x)))
+		return ; //error fct
+	while (j < map->m_x) //heigh to num + color to num
 	{
 		map->px[j] = ft_atoi(split[j]); //px_height
 		if ((color = ft_strchr(split[j], ','))) //px_color
@@ -86,7 +83,6 @@ int		*get_nbr(t_map *map)
 		j++;
 	}
 	free(split);
-	return (0);
 }
 
 int		parser(t_mlx *w, char *av)
@@ -115,8 +111,6 @@ int		parser(t_mlx *w, char *av)
 		w->m_y++; //line qty;
 	}
 	close(fd);
-//getchar();
 	gnl(fd, NULL);
-//getchar();
 	return (0);
 }
