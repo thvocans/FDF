@@ -14,6 +14,7 @@
 # define FDF_H
 # define LARG 1280
 # define HAUT 860
+# define SIZE 1100800
 
 # include "mlx.h"
 # include <stdio.h>
@@ -89,19 +90,22 @@ struct	s_mlx
 	t_quat	rot;		//rotation quaternion
 	int		step;		//zoom step
 	int		mid;
+	int		mx;
+	int		my;
 
 	t_img	img;		//img related
 	t_key	key;		//key related stuff
 	t_map	*map;		//linked list with map infos
 };
 
+void	ft_error(int error);
 void	map_init(t_mlx *w);
 int		is_on(t_key *key);				//not used yet
-int		ft_key(int key, void *p);		//key pressed to img
+void	ft_key(t_mlx *w);				//key pressed to img
 int		press(int key, void *p);		//toggle pressed keys
 int		release(int key, void *p);		//toggle released keys
 void	ft_init_key(t_key *key);		//init all to 0
-int		parser(t_mlx *w, char *av);		//reading stuff starts here
+int		ft_parser(t_mlx *w, char *av);		//reading stuff starts here
 void	printer(t_mlx *w);
 void	zoom(t_mlx *w);
 t_quat	quat_rot(t_quat q, t_quat rot);	//

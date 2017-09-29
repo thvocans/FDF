@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-int		ft_htoi(char *str)
+static int	ft_htoi(char *str)
 {
 	int		i;
 	int		out;
@@ -41,21 +41,7 @@ int		ft_htoi(char *str)
 	return (out);
 }
 
-void	ft_free(void **str)
-{
-	int i;
-
-	i = 0;
-	if (!str)
-		return ;
-	while (str[i])
-		free(str[i++]);
-	printf("free\n");
-	free(str);
-	str = NULL;
-}
-
-void	get_nbr(t_map *map)
+static void	ft_get_nbr(t_map *map)
 {
 	int		j;
 	char	**split;
@@ -85,20 +71,22 @@ void	get_nbr(t_map *map)
 	free(split);
 }
 
-int		parser(t_mlx *w, char *av)
+int		ft_parser(t_mlx *w, char *av)
 {
 	int		fd;
 	t_map	*map;
 	char	*line;
 
-	w->map = malloc(sizeof(*w->map)); //protect
+	if (!(w->map = malloc(sizeof(*w->map))))
+		ft_error(1);
 	map = w->map;
-	fd = open(av, O_RDONLY);
+	if ((fd = open(av, O_RDONLY)) < 0)
+		ft_error(2);
 	w->m_y = 0;
 	if (gnl(fd, &line) > 0)
 	{
 		map->line = line;
-		get_nbr(map);
+		ft_get_nbr(map);
 		w->m_y = 1;
 	}
 	while (gnl(fd, &line) > 0)
@@ -107,7 +95,7 @@ int		parser(t_mlx *w, char *av)
 		map = map->next;
 		map->line = line;
 		map->next = NULL;
-		get_nbr(map);
+		ft_get_nbr(map);
 		w->m_y++; //line qty;
 	}
 	close(fd);

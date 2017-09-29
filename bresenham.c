@@ -12,16 +12,17 @@
 
 #include "fdf.h"
 
-static void	ft_dunno(t_mlx *w, t_map *map, int x, int *t)
+static void	ft_trace(t_mlx *w, t_map *map, int x, int *t)
 {
 	int		wx;
 	int		u;
 
-	wx = w->x / 2;
-	u = w->y / 2;
+	wx = (w->x / 2) - 1;
+	u = (w->y / 2) - 1;
 	while (1)
-	{
-		if (t[6] <= wx - 1 && t[6] >= -wx && t[8] <= u - 1 && t[8] >= -u)
+	{//			right				left
+		if (t[6] <= wx - w->mx && t[6] >= -wx - w->mx &&
+			t[8] <= u + w->my && t[8] >= -u + w->my)//down  up
 			w->img.px[w->mid + t[6] + (t[8] * w->x)] = map->pc[x];
 		if (t[6] == t[7] && t[8] == t[9])
 			return ;
@@ -50,7 +51,7 @@ static void	ft_jpx_y(t_mlx *w, t_map *map, int x)
 	t[2] = t[6] < t[7] ? 1 : -1;
 	t[3] = t[8] < t[9] ? 1 : -1;
 	t[4] = (t[0] > t[1] ? t[0] : -t[1]) / 2;
-	ft_dunno(w, map, x, t);
+	ft_trace(w, map, x, t);
 }
 
 static void	ft_jpx_x(t_mlx *w, t_map *map, int x)
@@ -66,7 +67,7 @@ static void	ft_jpx_x(t_mlx *w, t_map *map, int x)
 	t[2] = t[6] < t[7] ? 1 : -1;
 	t[3] = t[8] < t[9] ? 1 : -1;
 	t[4] = (t[0] > t[1] ? t[0] : -t[1]) / 2;
-	ft_dunno(w, map, x, t);
+	ft_trace(w, map, x, t);
 }
 
 void		ft_join_px(t_mlx *w)

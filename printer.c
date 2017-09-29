@@ -45,30 +45,33 @@ void	store_quat(t_mlx *w, t_quat rot)
 	}
 	printer(w);
 }
+
 void	printer(t_mlx *w)
 {
-	int		x;
-	t_map	*map;
-	int	t = w->x / 2;
-	int	u = w->y / 2;
+//	int		x;
+//	t_map	*map;
+//	int	t = w->x / 2;
+//	int	u = w->y / 2;
+//	int pt;
 	
 	clear_img(w);
-	map = w->map;
+/*	map = w->map;
 	while (map)
 	{
 		x = 0;
 		while (x < map->m_x)
 		{
 			// write if final value is in window tolerances
-			if (map->q[x].x <= t - 1 && map->q[x].x >= -t &&
-				map->q[x].y <= u - 1 && map->q[x].y >= -u)
-				w->img.px[w->mid + (int)map->q[x].x + ((int)map->q[x].y * w->x)] = map->pc[x];
+			pt = w->mid + (int)map->q[x].x + ((int)map->q[x].y * w->x);
+			if (map->q[x].y >= -u && map->q[x].x >= -t &&
+				map->q[x].x <= t - 1 && map->q[x].y <= u - 1)
+				w->img.px[pt] = map->pc[x];
 			x++;
 		}
 		map = map->next; //next line
 	}
-	if (w->step != 1)
-		ft_join_px(w);
+	if (w->step != 1)*/
+	ft_join_px(w);
 	mlx_put_image_to_window(w->mlx, w->win, w->img.pt, 0,0);//refresh screen
 }
 
@@ -98,12 +101,10 @@ void	zoom(t_mlx *w)
 
 void	map_init(t_mlx *w)
 {
-	int		i; //current px
-	int		j;
-	t_map	*map;
-
 	w->step = 25;					//initial space step
 	w->rot = rot_quat(0, 1, 0, 0);
+	w->mx = 0;
+	w->my = 0;
 	w->mid = (w->x * (w->y + 1)) / 2;        //window middle pixel
 	zoom(w);
 	store_quat(w, quat_mult(rot_quat(-60, 1, 0, 0), rot_quat(15, 0, 0, 1)));

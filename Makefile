@@ -14,7 +14,7 @@
 
 NAME = exe
 
-FLAGS = #-Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 #FLAGS = -Wall -Wextra -Werror -lmlx -L./sierra -framework OpenGL -framework Appkit
 #FLAGS = -Wall -Wextra -Werror
 
@@ -31,7 +31,7 @@ LIB = $(LIB_FOLD)/libft.a
 
 GLIB = $(GLIB_FOLD)/libmlx.a
 
-SRC = main keyboard parsing printer quatern bresenham
+SRC = main keyboard error parsing printer quatern bresenham
 
 C_FILE = $(addsuffix .c,$(addprefix $(C_FOLDER),$(SRC)))
 

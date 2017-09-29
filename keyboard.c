@@ -27,6 +27,12 @@ int		is_on(t_key *key)
 }
 
 /*
+**	t_mlx		*w;	
+**	static int	x = 0;
+**	static int	y = 0;
+**	static int	pc = 0xFFFFFF;
+**
+**	w = (t_mlx*)p;
 **	if ((w->key.down[1]) & (1 << 3)) //b
 **		pc = 0x0000FF;//blue
 **	if ((w->key.down[1]) & (1 << 7)) //r
@@ -36,15 +42,37 @@ int		is_on(t_key *key)
 ** touche 1-9 = 83 - 92;
 ** fleches g|d|b|h : 15 1<<3 | 15 1<<4 | 15 1<<5 | 15 1<<6
 */
-
-int		ft_key(int key, void *p)
+static void ft_key2(t_mlx *w)
 {
-	t_mlx		*w;
-	static int	x = 0;
-	static int	y = 0;
-	static int	pc = 0xFFFFFF;
+	//translations
+	if ((w->key.down[15]) & (1 << 3) && (w->mx -= 10) == w->mx) //left arrow
+	{
+		w->mid -= 10;
+		store_quat(w, rot_quat(0, 0, 1, 0));
+	}
+	if ((w->key.down[15]) & (1 << 4) && (w->mx += 10) == w->mx) // right arrow
+	{
+		w->mid += 10;
+		store_quat(w, rot_quat(0, 0, 1, 0));
+	}
+	if ((w->key.down[15]) & (1 << 5) && (w->my -= 10) == w->my) // down arrow
+	{
+		w->mid += 10 * (w->x);
+		store_quat(w, rot_quat(0, 1, 0, 0));
+	}
+	if ((w->key.down[15]) & (1 << 6) && (w->my += 10) == w->my) // up arrow
+	{
+		w->mid -= 10 * (w->x);
+		store_quat(w, rot_quat(0, 1, 0, 0));
+	}
+	if ((w->key.down[9]) & (1 << 6) && w->step == (w->step--)) // - sign 78
+		zoom(w);
+	if ((w->key.down[8]) & (1 << 5) && w->step == (w->step++)) // + sign 69
+		zoom(w);
+}
 
-	w = (t_mlx*)p;
+void		ft_key(t_mlx *w)
+{
 	if ((w->key.down[6]) & (1 << 5)) //esc
 		exit(0);
 	//rotations
@@ -60,32 +88,7 @@ int		ft_key(int key, void *p)
 		store_quat(w, rot_quat(5, 0, 0, 1));
 	if ((w->key.down[11]) & (1 << 0)) // z clock num 6
 		store_quat(w, rot_quat(-5, 0, 0, 1));
-	//translations
-	if ((w->key.down[15]) & (1 << 3)) //left arrow
-	{
-		w->mid -= 10;
-		store_quat(w, rot_quat(0, 0, 1, 0));
-	}
-	if ((w->key.down[15]) & (1 << 4)) // right arrow
-	{
-		w->mid += 10;
-		store_quat(w, rot_quat(0, 0, 1, 0));
-	}
-	if ((w->key.down[15]) & (1 << 5)) // down arrow
-	{
-		w->mid += 10 * (w->x / 2);
-		store_quat(w, rot_quat(0, 1, 0, 0));
-	}
-	if ((w->key.down[15]) & (1 << 6)) // up arrow
-	{
-		w->mid -= 10 * (w->x / 2);
-		store_quat(w, rot_quat(0, 1, 0, 0));
-	}
-	if ((w->key.down[9]) & (1 << 6) && w->step == (w->step--)) // - sign 78
-		zoom(w);
-	if ((w->key.down[8]) & (1 << 5) && w->step == (w->step++)) // + sign 69
-		zoom(w);
-	return (0);
+	ft_key2(w);
 }
 
 int		press(int key, void *p)
@@ -99,7 +102,7 @@ int		press(int key, void *p)
 	w->key.down[w->key.oct] = w->key.down[w->key.oct] | w->key.mask;
 	//printf("down:%d\n",w->key.down[w->key.oct]);
 	//printf("m:%d oct:%d bit:%d \n",w->key.mask, w->key.oct, w->key.bit);
-	ft_key(key, p);
+	ft_key(w);
 	return (0);
 }
 
@@ -113,7 +116,7 @@ int		release(int key, void *p)
 	w->key.bit = key % 8;
 	w->key.mask = (char)(1 << w->key.bit);
 	w->key.down[w->key.oct] = w->key.down[w->key.oct] ^ w->key.mask;
-	ft_key(key, p);
+	ft_key(w);
 	return (0);
 }
 
