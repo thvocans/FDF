@@ -12,7 +12,7 @@
 
 #include "fdf.h"
 
-static int	ft_htoi(char *str)
+static int		ft_htoi(char *str)
 {
 	int		i;
 	int		out;
@@ -41,7 +41,7 @@ static int	ft_htoi(char *str)
 	return (out);
 }
 
-static void	ft_get_nbr(t_map *map)
+static void		ft_get_nbr(t_map *map)
 {
 	int		j;
 	char	**split;
@@ -71,32 +71,43 @@ static void	ft_get_nbr(t_map *map)
 	free(split);
 }
 
-int		ft_parser(t_mlx *w, char *av)
+static t_map	*ft_fill_map(char *line)
+{
+	t_map	*map;
+
+	if (!(map = malloc(sizeof(*map))))
+		ft_error(2);
+	map->line = line;
+	map->next = NULL;
+	ft_get_nbr(map);
+	return (map);
+}
+
+/*	if (gnl(fd, &line) > 0)
+**	{
+**		map->line = line;
+**		ft_get_nbr(map);
+**		w->m_y = 1;
+**	}
+*/
+
+int				ft_parser(t_mlx *w, char *av)
 {
 	int		fd;
 	t_map	*map;
 	char	*line;
 
 	if (!(w->map = malloc(sizeof(*w->map))))
-		ft_error(1);
+		ft_error(2);
 	map = w->map;
 	if ((fd = open(av, O_RDONLY)) < 0)
-		ft_error(2);
+		ft_error(3);
 	w->m_y = 0;
-	if (gnl(fd, &line) > 0)
-	{
-		map->line = line;
-		ft_get_nbr(map);
-		w->m_y = 1;
-	}
 	while (gnl(fd, &line) > 0)
 	{
-		map->next = malloc(sizeof(*map)); //protect
+		map->next = ft_fill_map(line);
 		map = map->next;
-		map->line = line;
-		map->next = NULL;
-		ft_get_nbr(map);
-		w->m_y++; //line qty;
+		w->m_y++;
 	}
 	close(fd);
 	gnl(fd, NULL);

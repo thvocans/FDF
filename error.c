@@ -11,12 +11,15 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "error.h"
 
 void	ft_error(int error)
 {
 	if (error == 0)
-		ft_putstr_fd("", 2);
+		ft_putstr_fd(NO_ARG, 2);
+	if (error == 1)
+		ft_putstr_fd(TOO_MUCH_ARG, 2);
 	if (error == 2)
-		perror("");
+		perror(NO_MEM);
 	exit(1);
 }

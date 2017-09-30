@@ -17,7 +17,11 @@ int		main(int ac, char **av)
 	t_mlx w;
 
 	if (ac != 2)
+	{
+		if (ac > 2)
+			ft_error(1);
 		ft_error(0);
+	}		
 	w.x = LARG;
 	w.y = HAUT;
 	ft_init_key(&w.key);
